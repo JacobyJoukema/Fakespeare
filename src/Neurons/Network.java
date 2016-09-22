@@ -19,31 +19,38 @@ public class Network
 	private double [] matrixDelta;
 	private double [] accThresholdDelta;
 	private double [] thresholdDelta;
-	
+
 	public Network (int inputCnt, int hiddenCnt,int outputCnt, double learnRate, double momentum)
 	{
 		this.learnRate = learnRate;
 		this.momentum = momentum;
-		
+
 		this.inputCnt = inputCnt;
 		this.hiddenCnt = hiddenCnt;
 		this.outputCnt = outputCnt;
-		
+
 		neuronCnt = inputCnt+hiddenCnt+outputCnt;
 		weightCnt = (inputCnt*hiddenCnt) + (hiddenCnt*outputCnt);
-		
+
 		fire = new double [neuronCnt];
 		matrix = new double[weightCnt];
 		matrixDelta = new double[weightCnt];
-		thresholds = new double [neuronCnt]
+		thresholds = new double [neuronCnt];
+		errorDelta = new double [neuronCnt];
+		error = new double [neuronCnt];
+		accThresholdDelta = new double [neuronCnt];
+		accMatrixDelta = new double [neuronCnt];
+		thresholdDelta = new double [neuronCnt];
+
+		reset();
 	}
 	public double[] compute (double [] input[])
 	{
-		
+
 	}
 	public void calcError(double ideal [])
 	{
-		
+
 	}
 	public double getError (int len)
 	{
@@ -51,10 +58,10 @@ public class Network
 	}
 	public void learn ()
 	{
-		
+
 	}
 	public void reset ()
 	{
-		
+
 	}
 }
