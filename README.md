@@ -1,2 +1,2 @@
 # Fakespeare
-An attempt at developing an AI capable of generating coherent sentences.
+An attempt at developing an AI capable of generating somewhat coherent sentences.
