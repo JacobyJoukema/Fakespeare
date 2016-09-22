@@ -76,13 +76,19 @@ public class Network
 		}
 		return result;
 	}
+	public double threshold (double sum)
+	{
+		return 1/(1+Math.exp(-1.0*sum));
+	}
 	public void calcError(double ideal [])
 	{
 
 	}
 	public double getError (int len)
 	{
-		return 0;
+		double err = Math.sqrt(globalError/len*outputCnt);
+		globalError=0;
+		return err;
 	}
 	public void learn ()
 	{
