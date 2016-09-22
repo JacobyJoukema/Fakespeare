@@ -46,7 +46,35 @@ public class Network
 	}
 	public double[] compute (double [] input[])
 	{
+		final int hiddenIndex = inputCnt;
+		final int outIndex = inputCnt+hiddenCnt;
 
+		for (int i = 0; i<inputCnt;i++)
+		{
+			fire[i] = input[i];
+		}
+		int inx = 0;
+		for (int i = hiddenIndex;i<inputCnt;i++)
+		{
+			double sum = thresholds[i];
+			for (int j = 0; j < inputCnt;j++)
+			{
+				sum+= fire[j] * matrix[inx++];
+			}
+			fire[i] = threshold(sum);
+		}
+		double result [] = new double [outputCnt];
+		for (int i = outIndex; i<neuronCnt;i++)
+		{
+			double sum = thresholds[i];
+			for (j = hiddenIndex; j < outIndex; j++)
+			{
+				sum+=fire[i]*matrix[inx++]
+			}
+			fire[i] = threshold(sum);
+			result[i-outIndex]=fire[i];
+		}
+		return result;
 	}
 	public void calcError(double ideal [])
 	{
