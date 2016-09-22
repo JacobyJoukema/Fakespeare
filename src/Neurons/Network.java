@@ -20,6 +20,7 @@ public class Network
 	private double [] accThresholdDelta;
 	private double [] thresholdDelta;
 
+	//Constructor
 	public Network (int inputCnt, int hiddenCnt,int outputCnt, double learnRate, double momentum)
 	{
 		this.learnRate = learnRate;
