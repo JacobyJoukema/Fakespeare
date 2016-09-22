@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename compilation unit &apos;Neurons.Neuron.java&apos; to &apos;Network.java&apos;&#x0D;&#x0A;- Original project: &apos;Fakespeare&apos;&#x0D;&#x0A;- Original element: &apos;Neurons.Neuron.java&apos;&#x0D;&#x0A;- Renamed element: &apos;Neurons.Network.java&apos;" description="Rename compilation unit &apos;Neuron.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;Neurons{Neuron.java" name="Network.java" references="false" stamp="1474505351267" version="1.0"/>
-</session>
