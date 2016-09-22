@@ -1,5 +1,6 @@
 .metadata/
 .recommenders/
+.plugins
 bin/
 .classpath
 .project
