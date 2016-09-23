@@ -10,7 +10,7 @@ public class Network
 	private int weightCnt;
 	private double learnRate;
 	private double momentum;
-	private double errorDelta;
+	private double [] errorDelta;
 	private double [] fire;
 	private double [] matrix;
 	private double [] error;
@@ -45,13 +45,13 @@ public class Network
 
 		reset();
 	}
-	public double[] compute (double [] input[])
+	public double[] compute (double [] input)
 	{
 		int i,j;
 		final int hiddenIndex = inputCnt;
 		final int outIndex = inputCnt+hiddenCnt;
 
-		for (int i = 0; i<inputCnt;i++)
+		for (i = 0; i<inputCnt;i++)
 		{
 			fire[i] = input[i];
 		}
@@ -71,7 +71,7 @@ public class Network
 			double sum = thresholds[i];
 			for (j = hiddenIndex; j < outIndex; j++)
 			{
-				sum+=fire[i]*matrix[inx++]
+				sum+=fire[i]*matrix[inx++];
 			}
 			fire[i] = threshold(sum);
 			result[i-outIndex]=fire[i];
@@ -95,7 +95,7 @@ public class Network
 
 		for (i = outputInd; i < neuronCnt; i++)
 		{
-			error[i] = ideal[i-outIndex] - fire[i];
+			error[i] = ideal[i-outputInd] - fire[i];
 			globalError += error [i] * error[i];
 			errorDelta[i] = error[i] * fire[i] * (1 -fire[i]);
 		}
@@ -107,7 +107,7 @@ public class Network
 			for (j = hiddenInd; j <outputCnt;j++)
 			{
 				accMatrixDelta[winx]+= errorDelta[i]*fire[j];
-				error[j] += mati[winx]*errorDelta[i];
+				error[j] += matrix[winx]*errorDelta[i];
 				winx++;
 			}
 			accThresholdDelta[i] += errorDelta[i];
@@ -137,10 +137,35 @@ public class Network
 	}
 	public void learn ()
 	{
+		int i;
 
+		for (i=0; i <matrix.length; i++)
+		{
+			matrixDelta[i] = learnRate *accThresholdDelta[i] + (momentum*thresholdDelta[i]);
+			matrix[i] += matrixDelta;
+			accThresholdDelta[i] = 0;
+		}
+		for (i = inputCnt; i < neuronCnt; i++)
+		{
+			thresholdDelta[i] = learnRate *accThresholdDelta[i] + (momentum*thresholdDelta[i]);
+			thresholds[i] += thresholdDelta[i];
+			accThresholdDelta[i] = 0;
+		}
 	}
 	public void reset ()
 	{
-
+		int i;
+		for (i = 0; i <neuronCnt;i++)
+		{
+			thresholds[i] = .5 - (Math.random());
+			thresholdDelta[i] = 0;
+			accThresholdDelta[i] = 0;
+		}
+		for (i = 0; i <matrix.length;i++)
+		{
+			matrix[i] = .5 - (Math.random());
+			matrixDelta[i] = 0;
+			accMatrixDelta[i] = 0;
+		}
 	}
 }
