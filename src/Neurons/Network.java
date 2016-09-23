@@ -142,7 +142,7 @@ public class Network
 		for (i=0; i <matrix.length; i++)
 		{
 			matrixDelta[i] = learnRate *accThresholdDelta[i] + (momentum*thresholdDelta[i]);
-			matrix[i] += matrixDelta;
+			matrix[i] += matrixDelta[i];
 			accThresholdDelta[i] = 0;
 		}
 		for (i = inputCnt; i < neuronCnt; i++)
