@@ -47,6 +47,7 @@ public class Network
 	}
 	public double[] compute (double [] input[])
 	{
+		int i,j;
 		final int hiddenIndex = inputCnt;
 		final int outIndex = inputCnt+hiddenCnt;
 
@@ -55,17 +56,17 @@ public class Network
 			fire[i] = input[i];
 		}
 		int inx = 0;
-		for (int i = hiddenIndex;i<inputCnt;i++)
+		for (i = hiddenIndex;i<inputCnt;i++)
 		{
 			double sum = thresholds[i];
-			for (int j = 0; j < inputCnt;j++)
+			for (j = 0; j < inputCnt;j++)
 			{
 				sum+= fire[j] * matrix[inx++];
 			}
 			fire[i] = threshold(sum);
 		}
 		double result [] = new double [outputCnt];
-		for (int i = outIndex; i<neuronCnt;i++)
+		for (i = outIndex; i<neuronCnt;i++)
 		{
 			double sum = thresholds[i];
 			for (j = hiddenIndex; j < outIndex; j++)
@@ -83,7 +84,50 @@ public class Network
 	}
 	public void calcError(double ideal [])
 	{
+		int i,j;
+		final int hiddenInd = inputCnt;
+		final int outputInd = inputCnt + hiddenCnt;
 
+		for (i = outputInd; i < neuronCnt; i++)
+		{
+			error[i] = 0;
+		}
+
+		for (i = outputInd; i < neuronCnt; i++)
+		{
+			error[i] = ideal[i-outIndex] - fire[i];
+			globalError += error [i] * error[i];
+			errorDelta[i] = error[i] * fire[i] * (1 -fire[i]);
+		}
+
+		int winx = inputCnt*hiddenCnt;
+
+		for (i = outputInd; i <neuronCnt; i++)
+		{
+			for (j = hiddenInd; j <outputCnt;j++)
+			{
+				accMatrixDelta[winx]+= errorDelta[i]*fire[j];
+				error[j] += mati[winx]*errorDelta[i];
+				winx++;
+			}
+			accThresholdDelta[i] += errorDelta[i];
+		}
+		for (i = hiddenInd; i < outputInd; i++)
+		{
+			errorDelta[i] = error[i] * fire[i] * (1- fire[i]);
+		}
+
+		winx = 0;
+		for (i = hiddenInd; i <outputInd;i++)
+		{
+			for (j = 0; j <hiddenInd; j++)
+			{
+				accMatrixDelta[winx] += errorDelta[i] * fire[j];
+				error[j] += matrix[winx] *errorDelta[i];
+				winx++;
+			}
+			accThresholdDelta[i] += errorDelta[i];
+		}
 	}
 	public double getError (int len)
 	{
