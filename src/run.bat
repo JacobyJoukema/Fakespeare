@@ -1,3 +1,4 @@
 javac Networks/NetworkBase.java
-javac Main.java
-java Main
+javac Train/Trainer.java
+javac Main/Main.java
+java Main/Main
