@@ -1,4 +1,4 @@
-javac Networks/NetworkBase.java
-javac Train/Trainer.java
-javac Main/Main.java
-java Main/Main
+javac networks/NetworkBase.java
+javac train/Trainer.java
+javac main/Main.java
+java main/Main

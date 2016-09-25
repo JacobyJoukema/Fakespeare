@@ -1,4 +1,4 @@
-package Networks;
+package networks;
 
 public class NetworkBase
 {

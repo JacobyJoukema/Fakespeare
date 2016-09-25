@@ -1,7 +1,7 @@
-package Main;
+package main;
 
-import Networks.NetworkBase;
-import Train.Trainer;
+import networks.NetworkBase;
+import train.Trainer;
 
 public class Main
 {

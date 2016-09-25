@@ -1,6 +1,6 @@
-package Train;
+package train;
 
-import Networks.*;
+import networks.*;
 
 public class Trainer
 {
