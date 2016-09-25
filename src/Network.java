@@ -1,4 +1,3 @@
-package Neurons;
 
 public class Network
 {
@@ -40,7 +39,7 @@ public class Network
 		errorDelta = new double [neuronCnt];
 		error = new double [neuronCnt];
 		accThresholdDelta = new double [neuronCnt];
-		accMatrixDelta = new double [neuronCnt];
+		accMatrixDelta = new double [weightCnt];
 		thresholdDelta = new double [neuronCnt];
 
 		reset();
@@ -141,6 +140,7 @@ public class Network
 
 		for (i=0; i <matrix.length; i++)
 		{
+			System.out.println(accThresholdDelta[i]);
 			matrixDelta[i] = learnRate *accThresholdDelta[i] + (momentum*thresholdDelta[i]);
 			matrix[i] += matrixDelta[i];
 			accThresholdDelta[i] = 0;
@@ -157,13 +157,13 @@ public class Network
 		int i;
 		for (i = 0; i <neuronCnt;i++)
 		{
-			thresholds[i] = .5 - (Math.random());
+			thresholds[i] = 0.5 - (Math.random());
 			thresholdDelta[i] = 0;
 			accThresholdDelta[i] = 0;
 		}
 		for (i = 0; i <matrix.length;i++)
 		{
-			matrix[i] = .5 - (Math.random());
+			matrix[i] = 0.5 - (Math.random());
 			matrixDelta[i] = 0;
 			accMatrixDelta[i] = 0;
 		}
