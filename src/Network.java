@@ -55,7 +55,7 @@ public class Network
 			fire[i] = input[i];
 		}
 		int inx = 0;
-		for (i = hiddenIndex;i<inputCnt;i++)
+		for (i = hiddenIndex;i<outIndex;i++)
 		{
 			double sum = thresholds[i];
 			for (j = 0; j < inputCnt;j++)
@@ -87,7 +87,7 @@ public class Network
 		final int hiddenInd = inputCnt;
 		final int outputInd = inputCnt + hiddenCnt;
 
-		for (i = outputInd; i < neuronCnt; i++)
+		for (i = inputCnt; i < neuronCnt; i++)
 		{
 			error[i] = 0;
 		}
@@ -130,7 +130,7 @@ public class Network
 	}
 	public double getError (int len)
 	{
-		double err = Math.sqrt(globalError/len*outputCnt);
+		double err = Math.sqrt(globalError/(len*outputCnt));
 		globalError=0;
 		return err;
 	}
@@ -140,10 +140,9 @@ public class Network
 
 		for (i=0; i <matrix.length; i++)
 		{
-			System.out.println(accThresholdDelta[i]);
-			matrixDelta[i] = learnRate *accThresholdDelta[i] + (momentum*thresholdDelta[i]);
+			matrixDelta[i] = (learnRate *accMatrixDelta[i]) + (momentum*matrixDelta[i]);
 			matrix[i] += matrixDelta[i];
-			accThresholdDelta[i] = 0;
+			accMatrixDelta[i] = 0;
 		}
 		for (i = inputCnt; i < neuronCnt; i++)
 		{
