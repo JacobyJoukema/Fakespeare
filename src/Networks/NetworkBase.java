@@ -1,5 +1,5 @@
 
-public class Network
+public class NetworkBase
 {
 	private double globalError;
 	private int inputCnt;
@@ -20,7 +20,7 @@ public class Network
 	private double [] thresholdDelta;
 
 	//Constructor
-	public Network (int inputCnt, int hiddenCnt,int outputCnt, double learnRate, double momentum)
+	public NetworkBase (int inputCnt, int hiddenCnt,int outputCnt, double learnRate, double momentum)
 	{
 		this.learnRate = learnRate;
 		this.momentum = momentum;

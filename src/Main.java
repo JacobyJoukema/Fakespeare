@@ -1,3 +1,4 @@
+import Networks.NetworkBase;
 
 public class Main
 {
@@ -15,7 +16,7 @@ public class Main
 
 	System.out.println("Start");
 
-	Network net = new Network (2,3,1,0.7,0.9);
+	NetworkBase net = new NetworkBase (2,3,1,0.7,0.9);
 
 	for (int i=0; i <= 10000; i++)
 	{
