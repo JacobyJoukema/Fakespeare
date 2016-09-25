@@ -1,6 +1,6 @@
 package Train;
 
-import Networks.NetworkBase;
+import Networks.*;
 
 public class Trainer
 {
