@@ -6,15 +6,11 @@ quotes = []
 pages = f.read().split('\n')
 f.close()
 pages.pop()
-#print (pages)
 
 for page in pages:
     print (page)
     data = requests.get(page)
     tree = html.fromstring(data.content)
-    #print (tree)
-    #lines = tree.xpath('//blockquote/text()')
-    #print (lines)
     '''lines = len(tree.xpath('//blockquote'))
     print (lines)
     for i in range (lines):
@@ -26,7 +22,6 @@ for page in pages:
             print (sentence)
             quote = quote+sentence+"\n"
         quotes.append(quote)'''
-    #quote = tree.xpath('//blockquote/a')
 
     quotes = quotes + tree.xpath('//blockquote/a/text()')
 
