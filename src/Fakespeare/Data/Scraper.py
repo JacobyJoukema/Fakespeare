@@ -11,25 +11,16 @@ for page in pages:
     print (page)
     data = requests.get(page)
     tree = html.fromstring(data.content)
-    '''lines = len(tree.xpath('//blockquote'))
-    print (lines)
-    for i in range (lines):
-        sentences = len(tree.xpath('//blockquote['+str(i)+']/a'))
-        print (sentences)
-        quote = ""
-        for j in range (sentences):
-            sentence = tree.xpath('//blockquote['+str(i)+']/a['+str(j)+']/text()')
-            print (sentence)
-            quote = quote+sentence+"\n"
-        quotes.append(quote)'''
-
-    quotes = quotes + tree.xpath('//blockquote/a/text()')
+    lines = len(tree.xpath('//blockquote'))
+    for line in range (lines):
+        text = tree.xpath('//blockquote['+str(line)+']/a/text()')
+        if (text != []):
+            quotes.append('\n'.join(text))
 
 print (len(quotes))
-print (quotes[-1])
 f = open('Lines.txt', 'w')
 print ("JOINING")
-out = "\n".join(quotes)
-print (out)
+print (type(quotes))
+out = "\n--------------\n".join(quotes)
 f.write(out)
 f.close()
