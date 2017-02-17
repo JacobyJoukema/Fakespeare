@@ -1,6 +1,6 @@
 import numpy as np
 from Utils import *
-import Tokenizer
+from Tokenizer import Tokenizer
 
 class RNN:
     def __init__ (self, vocab, hidden=100, bptt=4):
@@ -17,22 +17,24 @@ class RNN:
         #Time Steps
         T = len(x)
 
-        s = np.zeroes ((T+1, self.hidden))
-        s[-1] = np.zeroes(self.hidden)
+        s = np.zeros ((T+1, self.hidden))
+        s[-1] = np.zeros(self.hidden)
 
-        o = np.zeroes ((T, self.vocab))
+        o = np.zeros ((T, self.vocab))
 
-        for t in np.arrange(T):
+        for t in np.arange(T):
             s[t] = np.tanh(self.U[:,x[t]] + self.W.dot(s[t-1]))
+            print (type(s[t]))
+            print (type(self.V))
             o[t] = softmax(self.V.dot(s[t]))
 
         return [o,s]
-    RNN.forwardPropagation = forwardPropagation
+    #RNN.forwardPropagation = forwardPropagation
 
     def predict (self, x):
         o, s = self.forwardPropagation(x)
         return np.argmax(o,axis=1)
-    RNN.predict = predict
+    #RNN.predict = predict
 
 
 
