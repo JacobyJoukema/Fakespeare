@@ -3,7 +3,7 @@ from Utils import *
 from Tokenizer import Tokenizer
 
 class RNN:
-    def __init__ (self, vocab, hidden=100, bptt=4):
+    def __init__ (self, vocab, hidden=100, bpttTrunc=4):
         self.vocab = vocab
         self.hidden = hidden
         self.bptt = bptt
@@ -110,9 +110,10 @@ def testSystem ():
     print ("Actual Loss:")
     print (model.calculateLoss(xTrain[:100],yTrain[0:100]))
 
+def testGradient ():
     gradCheckSize = 100
-    np.random.seet(10)
-    CheckModel = RNN(gradCheckSize,10, bpttTruncate=1000)
+    np.random.seed(10)
+    CheckModel = RNN(gradCheckSize,10, bpttTrunc=1000)
     CheckModel.gradientCheck([0,1,2,3], [1,2,3,4])
 
-testSystem()
+testGradient()
