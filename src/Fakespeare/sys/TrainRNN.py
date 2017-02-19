@@ -1,9 +1,11 @@
 from RNN import RNN
 from Tokenizer import Tokenizer
 import numpy as np
-import timeit
+import time
+from datetime import datetime
+import sys
 
-def trainWithSDG (model, xTrain, yTrain, learningRate=.005, cycles=100, evalAfterLoss = 5):
+def trainWithSGD (model, xTrain, yTrain, learningRate=.005, cycles=100, evalAfterLoss = 5):
     losses = []
     examplesSeen = 0
     for cycle in range (cycles):
@@ -18,13 +20,27 @@ def trainWithSDG (model, xTrain, yTrain, learningRate=.005, cycles=100, evalAfte
                 print ("New Learning Rate: " + str (learningRate))
             sys.stdout.flush()
         for i in range (len (yTrain)):
-            model.sdgStep(xTrain, yTrain, learningRate)
+            model.sgdStep(xTrain, yTrain, learningRate)
             examplesSeen+=1
 
-t = Tokenizer()
-vocabSize = t.getVocabSize()
-xTrain, yTrain = t.getData()
+def testTrain ():
+    print ("Starting Test")
+    np.random.seed(10)
+    print ("Starting Tokenization")
+    t = Tokenizer()
+    print ("Tokenizer Complete")
+    vocabSize = t.getVocabSize()
+    xTrain, yTrain = t.getData()
 
-model = RNN(vocabSize)
+    print ("Constructing Model")
+    model = RNN(vocabSize)
+    print ("Starting Timer")
+    start = time.clock()
+    model.sgdStep(xTrain[10], yTrain[10], .005)
+    end = time.clock()
+    print ("One Step Time: " + str(end-start))
 
-model.sdgStep(xTrain[10], yTrain[10], .005)
+    print ("Starting Training")
+    losses = trainWithSGD(model,xTrain[:100], yTrain[:100], cycles=10, evalAfterLoss=1)
+
+testTrain()
