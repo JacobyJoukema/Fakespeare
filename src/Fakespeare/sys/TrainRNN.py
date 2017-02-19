@@ -4,6 +4,7 @@ import numpy as np
 import time
 from datetime import datetime
 import sys
+from Utils import *
 
 def trainWithSGD (model, xTrain, yTrain, learningRate=.005, cycles=100, evalAfterLoss = 5):
     losses = []
@@ -20,7 +21,7 @@ def trainWithSGD (model, xTrain, yTrain, learningRate=.005, cycles=100, evalAfte
                 print ("New Learning Rate: " + str (learningRate))
             sys.stdout.flush()
         for i in range (len (yTrain)):
-            model.sgdStep(xTrain, yTrain, learningRate)
+            model.sgdStep(xTrain[i], yTrain[i], learningRate)
             examplesSeen+=1
 
 def testTrain ():
@@ -43,5 +44,6 @@ def testTrain ():
 
     print ("Starting Training")
     losses = trainWithSGD(model,xTrain[:100], yTrain[:100], cycles=10, evalAfterLoss=1)
+    Utils.save("Data/TestModel.npz", model)
 
 testTrain()

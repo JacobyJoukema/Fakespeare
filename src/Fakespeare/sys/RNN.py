@@ -24,8 +24,8 @@ class RNN:
         o = np.zeros ((T, self.vocab))
 
         for t in np.arange(T):
-            print (self.U.shape)
-            print (self.W.shape)
+            #print (self.U.shape)
+            #print (self.W.shape)
             s[t] = np.tanh(self.U[:,x[t]] + self.W.dot(s[t-1]))
             o[t] = softmax(self.V.dot(s[t]))
 
@@ -102,3 +102,10 @@ class RNN:
         self.U -= learningRate*dLdU
         self.V -= learningRate*dLdV
         self.W -= learningRate*dLdW
+
+    def getValues():
+        return self.U, self.V, self.W
+    def setValues(U, V, W):
+        self.U = U
+        self.V = V
+        self.W = W

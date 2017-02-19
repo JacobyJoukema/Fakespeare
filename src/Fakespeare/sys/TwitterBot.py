@@ -13,3 +13,6 @@ def tweet (quote):
 if __name__ == '__main__':
     print ("Hello World")
     tweet ("Hello World")
+
+def generateSentence (model):
+    
