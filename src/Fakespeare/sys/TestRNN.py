@@ -17,7 +17,7 @@ def testSystem ():
 
     print ("Expected Loss: \n" + str(np.log(model.vocab)))
     print ("Actual Loss:")
-    print (model.calculateLoss(xTrain[:100],yTrain[0:100]))
+    print (model.calculateLoss(xTrain[:100],yTrain[:100]))
 
 def testGradient ():
     gradCheckSize = 100

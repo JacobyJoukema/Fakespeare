@@ -10,9 +10,9 @@ class RNN:
         self.bpttTrunc = bpttTrunc
 
         #Ref
-        self.U = np.random.uniform(-np.sqrt(1./vocab), np.sqrt(1./vocab), (hidden, vocab))
-        self.V = np.random.uniform(-np.sqrt(1./hidden), np.sqrt(1./hidden), (vocab, hidden))
-        self.W = np.random.uniform(-np.sqrt(1./hidden), np.sqrt(1./hidden), (hidden, hidden))
+        self.U = np.random.uniform(-np.sqrt(1./self.vocab), np.sqrt(1./self.vocab), (self.hidden, self.vocab))
+        self.V = np.random.uniform(-np.sqrt(1./self.hidden), np.sqrt(1./self.hidden), (self.vocab, self.hidden))
+        self.W = np.random.uniform(-np.sqrt(1./self.hidden), np.sqrt(1./self.hidden), (self.hidden, self.hidden))
 
     def forwardPropagation (self, x):
         #Time Steps
@@ -24,6 +24,8 @@ class RNN:
         o = np.zeros ((T, self.vocab))
 
         for t in np.arange(T):
+            print (self.U.shape)
+            print (self.W.shape)
             s[t] = np.tanh(self.U[:,x[t]] + self.W.dot(s[t-1]))
             o[t] = softmax(self.V.dot(s[t]))
 

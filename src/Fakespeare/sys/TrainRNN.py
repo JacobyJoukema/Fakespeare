@@ -27,9 +27,10 @@ def testTrain ():
     print ("Starting Test")
     np.random.seed(10)
     print ("Starting Tokenization")
-    t = Tokenizer()
+    t = Tokenizer(vocabSize=15000)
     print ("Tokenizer Complete")
     vocabSize = t.getVocabSize()
+    print ("Vocab Size: " + str(vocabSize))
     xTrain, yTrain = t.getData()
 
     print ("Constructing Model")
