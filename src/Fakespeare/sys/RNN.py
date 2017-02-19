@@ -1,12 +1,13 @@
 import numpy as np
 from Utils import *
 from Tokenizer import Tokenizer
+import operator
 
 class RNN:
     def __init__ (self, vocab, hidden=100, bpttTrunc=4):
         self.vocab = vocab
         self.hidden = hidden
-        self.bptt = bptt
+        self.bpttTrunc = bpttTrunc
 
         #Ref
         self.U = np.random.uniform(-np.sqrt(1./vocab), np.sqrt(1./vocab), (hidden, vocab))
@@ -54,10 +55,10 @@ class RNN:
         dLdW = np.zeros(self.W.shape)
         deltaO = o
         deltaO[np.arange(len(y)),y]-=1.
-        for i in np.arange(T)[::-1]:
+        for t in np.arange(T)[::-1]:
             dLdV += np.outer(deltaO[t],s[t].T)
-            deltaT = self.V.T.dot(deltaO)*(1-(s[t]**2))
-            for bpttStep in nparange(max(0,t-self.bpttTruncate),t+1)[::-1]:
+            deltaT = self.V.T.dot(deltaO[t])*(1-(s[t]**2))
+            for bpttStep in np.arange(max(0,t-self.bpttTrunc),t+1)[::-1]:
                 dLdW+=np.outer(deltaT,s[bpttStep-1])
                 dLdU[:,x[bpttStep]] += deltaT
                 deltaT = self.W.T.dot(deltaT)*(1-s[bpttStep-1]**2)
@@ -69,7 +70,7 @@ class RNN:
         for pidx, pname in enumerate(modelParams):
             param = operator.attrgetter(pname)(self)
             print ("Gradient Check for Parameter " + pname + " and size " + str (np.prod(param.shape)))
-            it = np.nditer(parameter, flags=['multi_index'], op_flags=['readwrite'])
+            it = np.nditer(param, flags=['multi_index'], op_flags=['readwrite'])
             while not it.finished:
                 ix = it.multi_index
                 original = param[ix]
@@ -81,7 +82,7 @@ class RNN:
                 param[ix] = original
 
                 backpropGrad = bpttGrad[pidx][ix]
-                relativeErr = np.abs(backpropGrad - estGrad)/(np.abs(backProp) + np.abs(estGrad))
+                relativeErr = np.abs(backpropGrad - estGrad)/(np.abs(backpropGrad) + np.abs(estGrad))
                 if relativeErr >= thresh:
                     print ("Gradient Err: Param " + pname + "ix " + str(ix))
                     print ("+h loss " + str(gradPlus))
@@ -93,27 +94,9 @@ class RNN:
                 it.iternext()
             print ("PASS: Gradient Check for Parameter " + pname)
 
-def testSystem ():
-    t = Tokenizer()
+    def sgdStep (self, x, y, learningRate):
+        dLdU, dLdV, dLdW = self.bptt(x,y)
 
-    xTrain, yTrain = t.getData()
-    np.random.seed(10)
-    model = RNN(15000)
-    o, s = model.forwardPropagation(xTrain[10])
-    predictions = model.predict(xTrain[10])
-    print (o.shape)
-    print (o)
-    print (predictions.shape)
-    print (predictions)
-
-    print ("Expected Loss: \n" + str(np.log(model.vocab)))
-    print ("Actual Loss:")
-    print (model.calculateLoss(xTrain[:100],yTrain[0:100]))
-
-def testGradient ():
-    gradCheckSize = 100
-    np.random.seed(10)
-    CheckModel = RNN(gradCheckSize,10, bpttTrunc=1000)
-    CheckModel.gradientCheck([0,1,2,3], [1,2,3,4])
-
-testGradient()
+        self.U -= learningRate*dLdU
+        self.V -= learningRate*dLdV
+        self.W -= learningRate*dLdW

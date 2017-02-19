@@ -6,13 +6,12 @@ class Tokenizer:
     senStart = "SENTENCE_START"
     senEnd = "SENTENCE_END"
     unknown = "UNKNOWN_TOKEN"
-    vocabSize = 15000
 
     xTrain = []
     yTrain = []
 
-    def __init__ (self):
-
+    def __init__ (self, vocabSize=15000):
+        self.vocabSize = vocabSize
         f = open('Data/Lines.txt', 'r')
         text = f.read()
         lines = text.split("--------------")
@@ -43,4 +42,6 @@ class Tokenizer:
     def getData (self):
         return self.xTrain, self.yTrain
 
+    def getVocabSize (self):
+        return self.vocabSize
 T = Tokenizer()
