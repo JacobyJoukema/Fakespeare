@@ -103,9 +103,9 @@ class RNN:
         self.V -= learningRate*dLdV
         self.W -= learningRate*dLdW
 
-    def getValues():
+    def getValues(self):
         return self.U, self.V, self.W
-    def setValues(U, V, W):
+    def setValues(self, U, V, W):
         self.U = U
         self.V = V
         self.W = W

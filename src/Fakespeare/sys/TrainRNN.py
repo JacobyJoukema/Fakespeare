@@ -44,6 +44,6 @@ def testTrain ():
 
     print ("Starting Training")
     losses = trainWithSGD(model,xTrain[:100], yTrain[:100], cycles=10, evalAfterLoss=1)
-    Utils.save("Data/TestModel.npz", model)
+    save("Data/TestModel.npz", model)
 
 testTrain()

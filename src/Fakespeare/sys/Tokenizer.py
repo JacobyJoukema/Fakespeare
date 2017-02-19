@@ -29,14 +29,14 @@ class Tokenizer:
         vocab = wordFreq.most_common(self.vocabSize-1)
         indexToWord = [x[0] for x in vocab]
         indexToWord.append(self.unknown)
-        wordToInd = dict([(w,i) for i,w in enumerate(indexToWord)])
+        self.wordToInd = dict([(w,i) for i,w in enumerate(indexToWord)])
 
         for i, sent in enumerate(tokenized):
-            tokenized[i] = [w if w in wordToInd else self.unknown for w in sent]
+            tokenized[i] = [w if w in self.wordToInd else self.unknown for w in sent]
 
         #Ref
-        self.xTrain = np.asarray([[wordToInd[word] for word in sent[:-1]] for sent in tokenized])
-        self.yTrain = np.asarray([[wordToInd[word] for word in sent[1:]] for sent in tokenized])
+        self.xTrain = np.asarray([[self.wordToInd[word] for word in sent[:-1]] for sent in tokenized])
+        self.yTrain = np.asarray([[self.wordToInd[word] for word in sent[1:]] for sent in tokenized])
 
         #print (tokenized)
     def getData (self):
@@ -44,4 +44,7 @@ class Tokenizer:
 
     def getVocabSize (self):
         return self.vocabSize
+
+    def getWordToInd ():
+        return self.wordToInd
 T = Tokenizer()
