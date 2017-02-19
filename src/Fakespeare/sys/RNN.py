@@ -37,13 +37,14 @@ class RNN:
     #RNN.predict = predict
 
 
-
-
 t = Tokenizer()
 
 xTrain, yTrain = t.getData()
 np.random.seed(10)
-model = RNN(1000)
+model = RNN(15000)
 o, s = model.forwardPropagation(xTrain[10])
+predictions = model.predict(xTrain[10])
 print (o.shape)
 print (o)
+print (predictions.shape)
+print (predictions)
