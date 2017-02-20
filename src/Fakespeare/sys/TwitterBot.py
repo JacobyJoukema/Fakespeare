@@ -1,5 +1,6 @@
 from twitter import *
-
+from time import sleep
+from Generator import Generator
 
 def tweet (quote):
     accessToken = "778726628079742976-HAq2wk6WQxIE0XlbMBBJi9tEcpyjoeb"
@@ -13,4 +14,11 @@ def tweet (quote):
 
 
 if __name__ == '__main__':
-    gen = generator()
+    gen = Generator("Data/FakespeareProg.npz")
+    while True:
+        print ("Curating")
+        num, sentence = gen.curateSentence()
+        for i in range (num):
+            print ("Tweeting: " + str(sentence[i]))
+            tweet (sentence[i])
+        sleep (10*60*60)

@@ -36,9 +36,28 @@ class Generator:
         #print (sentence)
         return (self.postParse(sentence))
 
-g = Generator("Data/FakespeareProg.npz")
+    def curateSentence (self):
+        sentence = self.generateSentence()
+        while not (len(sentence) > 80 and len(sentence) < 270):
+            sentence = self.generateSentence()
+        if len(sentence) > 140:
+            ind = 0
+            for i in range(130,len(sentence)):
+                if sentence[i]==" ":
+                    ind = i
+                    break
+            split = [sentence[:ind+1], sentence[ind+1:]]
+            if (len(split[0]) > 140 or len(split[1]) > 140):
+                return self.curateSentence()
+            else:
+                return 2, [split[1],split[0]]
+        else:
+            return 1, [sentence]
+
+'''g = Generator("Data/FakespeareProg.npz")
 for i in range (10):
     print ("Generating Sentence " + str(i))
     sent = g.generateSentence()
     print ("Sentence Length: " + str (len(sent)))
     print (sent)
+'''
