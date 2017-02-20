@@ -15,7 +15,8 @@ def trainWithSGD (model, xTrain, yTrain, learningRate=.005, cycles=100, evalAfte
             losses.append((examplesSeen, loss))
             time = datetime.now().strftime('%y-%m-%d %H:%M:%S')
             print (str (time) + ": Loss after, Examples: " + str(examplesSeen) + " Cycle: " + str(cycle) + " Loss: " + str(loss))
-
+            with open("Data/Log.txt", "a") as log:
+                log.write("\n"+str (time) + ": Loss after, Examples: " + str(examplesSeen) + " Cycle: " + str(cycle) + " Loss: " + str(loss))
             if (len(losses) > 1 and losses[-1][1] > losses [-2][1]):
                 learningRate = learningRate*.5
                 print ("New Learning Rate: " + str (learningRate))
@@ -44,7 +45,9 @@ def testTrain ():
     print ("One Step Time: " + str(end-start))
 
     print ("Starting Training")
-    losses = trainWithSGD(model,xTrain, yTrain, cycles=50, evalAfterLoss=1)
+    reset = open ("Data/Log.txt", "w")
+    reset.write("")
+    losses = trainWithSGD(model,xTrain[:100], yTrain[:100], cycles=10, evalAfterLoss=1)
     save("Data/Fakespeare.npz", model)
 
 testTrain()
