@@ -27,9 +27,9 @@ class Tokenizer:
         #Ref
         wordFreq = nltk.FreqDist(itertools.chain(*tokenized))
         vocab = wordFreq.most_common(self.vocabSize-1)
-        indexToWord = [x[0] for x in vocab]
-        indexToWord.append(self.unknown)
-        self.wordToInd = dict([(w,i) for i,w in enumerate(indexToWord)])
+        self.indexToWord = [x[0] for x in vocab]
+        self.indexToWord.append(self.unknown)
+        self.wordToInd = dict([(w,i) for i,w in enumerate(self.indexToWord)])
 
         for i, sent in enumerate(tokenized):
             tokenized[i] = [w if w in self.wordToInd else self.unknown for w in sent]
@@ -45,6 +45,9 @@ class Tokenizer:
     def getVocabSize (self):
         return self.vocabSize
 
-    def getWordToInd ():
+    def getWordToInd (self):
         return self.wordToInd
+
+    def getIndToWord (self):
+        return self.indexToWord
 T = Tokenizer()

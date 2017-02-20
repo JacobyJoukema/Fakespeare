@@ -13,7 +13,7 @@ def save (out, model):
 
 def load (inp, model):
     npzfile = np.load(inp)
-    U, V, Z = npzfile["U"], npzfile["V"], npzfile["W"]
+    U, V, W = npzfile["U"], npzfile["V"], npzfile["W"]
     model.hidden = U.shape[0]
     model.vocab = U.shape[1]
     model.setValues(U, V, W)

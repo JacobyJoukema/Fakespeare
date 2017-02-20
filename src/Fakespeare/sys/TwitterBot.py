@@ -14,22 +14,24 @@ def tweet (quote):
 
     t.statuses.update(status=quote)
 
-if __name__ == '__main__':
-    t = Tokenizer()
-    wordToInd = t.getWordToInd()
-    model = RNN()
-    load("Data/TestModel.npz", model)
-    for i in range (10):
-        print (generateSentence(model, wordToInd))
-
-def generateSentence (model, wordToInd):
+def generateSentence (model, wordToInd, indexToWord):
     newSent = [wordToInd["SENTENCE_START"]]
     while not newSent[-1] == wordToInd["SENTENCE_END"]:
-        nextWord = model.forwardPropagation(newSent)
+        nextWordProbs = model.forwardPropagation(newSent)[0]
         sampled = wordToInd["UNKNOWN_TOKEN"]
         while sampled == wordToInd["UNKNOWN_TOKEN"]:
-            samples = np.random.multinomial(1,nextWord[-1])
+            samples = np.random.multinomial(1,nextWordProbs[-1])
             sampled = np.argmax(samples)
         newSent.append(sampled)
     sentence = [indexToWord[x] for x in newSent[1:-1]]
-    return sentence
+    return (" ".join(sentence))
+
+if __name__ == '__main__':
+    t = Tokenizer()
+    wordToInd = t.getWordToInd()
+    indexToWord = t.getIndToWord()
+    model = RNN(t.getVocabSize())
+    load("Data/TestModel.npz", model)
+    for i in range (10):
+        print ("Generating Sentence " + str(i))
+        print (generateSentence(model, wordToInd, indexToWord))
