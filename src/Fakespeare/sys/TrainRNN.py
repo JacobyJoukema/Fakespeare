@@ -20,6 +20,7 @@ def trainWithSGD (model, xTrain, yTrain, learningRate=.005, cycles=100, evalAfte
                 learningRate = learningRate*.5
                 print ("New Learning Rate: " + str (learningRate))
             sys.stdout.flush()
+            save("Data/FakespeareProg.npz", model)
         for i in range (len (yTrain)):
             model.sgdStep(xTrain[i], yTrain[i], learningRate)
             examplesSeen+=1
@@ -43,7 +44,7 @@ def testTrain ():
     print ("One Step Time: " + str(end-start))
 
     print ("Starting Training")
-    losses = trainWithSGD(model,xTrain[:100], yTrain[:100], cycles=10, evalAfterLoss=1)
-    save("Data/TestModel.npz", model)
+    losses = trainWithSGD(model,xTrain, yTrain, cycles=50, evalAfterLoss=1)
+    save("Data/Fakespeare.npz", model)
 
 testTrain()
