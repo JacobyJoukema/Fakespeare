@@ -54,10 +54,12 @@ class Generator:
         else:
             return 1, [sentence]
 
-'''g = Generator("Data/FakespeareProg.npz")
-for i in range (10):
-    print ("Generating Sentence " + str(i))
-    sent = g.generateSentence()
-    print ("Sentence Length: " + str (len(sent)))
-    print (sent)
-'''
+def testCurate ():
+    gen = Generator("Data/FakespeareProg.npz")
+    while True:
+        print ("Curating")
+        num, sentence = gen.curateSentence()
+        for i in range (num):
+            print ("Sample Tweet: " + str(sentence[i]))
+
+testCurate()

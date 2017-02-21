@@ -21,4 +21,4 @@ if __name__ == '__main__':
         for i in range (num):
             print ("Tweeting: " + str(sentence[i]))
             tweet (sentence[i])
-        sleep (10*60*60)
+        sleep (9*60*60)
