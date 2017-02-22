@@ -62,4 +62,4 @@ def testCurate ():
         for i in range (num):
             print ("Sample Tweet: " + str(sentence[i]))
 
-testCurate()
+#testCurate()
