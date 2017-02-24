@@ -20,5 +20,11 @@ if __name__ == '__main__':
         num, sentence = gen.curateSentence()
         for i in range (num):
             print ("Tweeting: " + str(sentence[i]))
-            tweet (sentence[i])
+            tweeted = False
+            while not tweeted:
+                try:
+                    tweet (sentence[i])
+                    tweeted = True
+                except:
+                    print ("Retry")
         sleep (9*60*60)
