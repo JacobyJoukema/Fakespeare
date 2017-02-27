@@ -38,7 +38,7 @@ class Generator:
 
     def curateSentence (self):
         sentence = self.generateSentence()
-        while not (len(sentence) > 80 and len(sentence) < 270):
+        while (not (len(sentence) > 80 and len(sentence) < 270) or ("[") in sentence or ("]") in sentence):
             sentence = self.generateSentence()
         if len(sentence) > 140:
             ind = 0
@@ -55,7 +55,7 @@ class Generator:
             return 1, [sentence]
 
 def testCurate ():
-    gen = Generator("Data/FakespeareProg.npz")
+    gen = Generator("Data/FakespeareFinal.npz")
     while True:
         print ("Curating")
         num, sentence = gen.curateSentence()
