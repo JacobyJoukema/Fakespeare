@@ -9,3 +9,4 @@ bin/
 *.txt
 *.npz
 __pycache__
+*.pyc

@@ -47,7 +47,7 @@ def testTrain ():
     print ("Starting Training")
     reset = open ("Data/Log.txt", "w")
     reset.write("")
-    losses = trainWithSGD(model,xTrain[:100], yTrain[:100], cycles=10, evalAfterLoss=1)
+    losses = trainWithSGD(model,xTrain, yTrain, cycles=50, evalAfterLoss=1)
     save("Data/Fakespeare.npz", model)
 
 testTrain()
