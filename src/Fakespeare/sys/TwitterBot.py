@@ -6,10 +6,11 @@ def tweet (quote):
     f = open("Data/cred.txt", "r")
     creds = f.read()
     creds = creds.split(",")
+    #print (creds)
     accessToken = creds[0]
     accessTokenS = creds[1]
     consumerKey = creds[2]
-    consumerS = creds[3]
+    consumerS = creds[3].split("\n")[0]
 
     t = Twitter (auth=OAuth(accessToken, accessTokenS, consumerKey, consumerS))
 
