@@ -30,5 +30,4 @@ if __name__ == '__main__':
                     tweeted = True
                 except:
                     print ("Retry")
-                    tweeted=True
-        sleep (9*60*60)
+  sleep (9*60*60)
