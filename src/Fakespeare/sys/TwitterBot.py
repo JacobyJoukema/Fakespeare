@@ -3,10 +3,13 @@ from time import sleep
 from Generator import Generator
 
 def tweet (quote):
-    accessToken = "778726628079742976-HAq2wk6WQxIE0XlbMBBJi9tEcpyjoeb"
-    accessTokenS = "1M1cH5jyGQrm99WWfrQWw8tfmmQnxAvX7m1IN14w0H5AT"
-    consumerKey = "Kitw7q1GVZj93vN1CPZwrUdUc"
-    consumerS = "b19uuiJ6ey1DopmXqiNdI3ZR36W8DtscjN7LVCKZym06Bu5awh"
+    f = open("Data/cred.txt", "r")
+    creds = f.read()
+    creds = creds.split(",")
+    accessToken = creds[0]
+    accessTokenS = creds[1]
+    consumerKey = creds[2]
+    consumerS = creds[3]
 
     t = Twitter (auth=OAuth(accessToken, accessTokenS, consumerKey, consumerS))
 
