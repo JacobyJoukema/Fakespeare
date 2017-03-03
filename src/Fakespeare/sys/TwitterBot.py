@@ -17,7 +17,7 @@ def tweet (quote):
 
 
 if __name__ == '__main__':
-    gen = Generator("Data/FakespeareProg.npz")
+    gen = Generator("Data/FakespeareFinal.npz")
     while True:
         print ("Curating")
         num, sentence = gen.curateSentence()
