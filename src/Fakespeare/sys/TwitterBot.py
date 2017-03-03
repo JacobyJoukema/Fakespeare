@@ -6,7 +6,6 @@ def tweet (quote):
     f = open("Data/cred.txt", "r")
     creds = f.read()
     creds = creds.split(",")
-    print (creds)
     accessToken = creds[0]
     accessTokenS = creds[1]
     consumerKey = creds[2]
@@ -31,5 +30,5 @@ if __name__ == '__main__':
                     tweeted = True
                 except:
                     print ("Retry")
-		    tweeted=True
+                    tweeted=True
         sleep (9*60*60)
